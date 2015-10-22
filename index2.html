@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+	</head>
+	<body>
+		<div id="clock"></div>
+		<script>
+		
+			$(document).ready(function(){
+
+				function getTime() {
+					console.log("hello?");
+
+					var date = new Date();
+					var h = date.getHours();
+					var m = date.getMinutes();
+					var s = date.getSeconds();
+					var ms = date.getMilliseconds();
+
+					console.log(date);
+					console.log(h);
+					console.log(m);
+					console.log(s);
+
+					h = noMilitaryTime(h);
+					h = formatValue(h);
+
+					// format m and s correctly
+					m = formatValue(m);
+					s = formatValue(s);
+
+					changeColor(m);
+					changeFontSize(m);
+					changeColorAgain(m);
+					// var randomSize = Math.floor(Math.random()*16777215).toString(16);
+					// var arrayColors = [
+					// {"color", "red", "blue", "green", "yellow", "pink", "orange", "purple"}
+					// ];
+
+
+					$("#clock").html(h + ":" + m + ":" + s + ":" + ms);
+
+					setTimeout(getTime, 1000);
+					
+				}
+
+				function noMilitaryTime(value) {
+					if (value > 12) {
+						return value - 12;
+						} else {
+						return value;
+						}
+				}
+
+				function formatValue(value)	{
+					if (value < 10) {
+						return "0" + value;
+					} else{
+					return value;
+					}
+				}
+
+				getTime();
+
+				function changeColor(value) {
+					if (value % 2 !== 0) {
+						return $("body").css("background-color", "black");
+					} else {
+						return $("body").css("background-color", "lightblue");
+					}
+				}
+
+				function changeFontSize(value) {
+					if (value % 5 === 0) {
+						return $("body").css("font-size", "36px");
+					} else {
+						return $("body").css("font-size", "15px");				
+					}
+
+					setTimeout(changeFontSize, 300000)
+				}
+
+				
+				function changeColorAgain(value){
+					if (value === "00") {
+						return $("body").css("color", "blue");
+					} else {
+						return $("body").css("color", "black");
+					}
+
+					setInterval(changeColorAgain, 3600000);
+
+				}
+
+			});
+
+		</script>
+	</body>
+</html>
