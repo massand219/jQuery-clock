@@ -26,18 +26,12 @@
 					h = noMilitaryTime(h);
 					h = formatValue(h);
 
-					// format m and s correctly
 					m = formatValue(m);
 					s = formatValue(s);
 
 					changeColor(m);
 					changeFontSize(m);
 					changeColorAgain(m);
-					// var randomSize = Math.floor(Math.random()*16777215).toString(16);
-					// var arrayColors = [
-					// {"color", "red", "blue", "green", "yellow", "pink", "orange", "purple"}
-					// ];
-
 
 					$("#clock").html(h + ":" + m + ":" + s + ":" + ms);
 
