@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+  </head>
+
+  <body>
+    <div id="clock"></div>
+
+    <script>
+    //load page (document/html/css, etc.) before jquery
+      $(document).ready(function() {
+        function startTime() {
+          //set variables to call the function - clock itself.
+          var today = new Date();
+          var h = today.getHours();
+          var m = today.getMinutes();
+          var s = today.getSeconds();
+
+          //invoke clock helper function: returning the clock function.
+
+          h = noMilitaryTime(h); //calling the hours for no military time, so the hours return the no military time function
+
+          //calling the minutes, seconds and hours so they all show double digits in the clock: 
+          m = checkTime(m); 
+          s = checkTime(s);
+          h = checkTime(h);
+
+          //the .text can be replaced by .html: it's so the clock (number of the clock) appear on the page; are visible on the page. the + defines "and", so the hours, with a colon, the minutes, with a colon, and the seconds appear on the pages as text.
+          $("#clock").text(h + ":" + m + ":" + s);
+
+          // to refresh the clock every second. 1000 = 1 second.
+          setTimeout(startTime, 1000);
+        }
+
+        //this is the function for the double digits to appear, the the value is less than 10, it normally appears as single digits, but through this function, if the value is less than 10 you add (+) a 0 before the value (i), so even single digit numbers are double digits. 
+        function checkTime(i) {
+          if (i < 10) {
+            i = "0" + i;
+          }
+
+          return i;
+        }
+
+        //this function calls for the clock to be in non military format. if the value (i) is greater than 12, the function returns the value minus 12 (to show the 12 hour clock as opposed to the 24 hour clock; military time), otherwise if the value (i) is greater less than 12, the function must return the correct number, or whatever i is from 0-12. 
+        function noMilitaryTime(i) {
+          if (i > 12) {
+            return i - 12;
+            } else {
+            return i;
+            }
+        }
+
+        //this function allows the original font size to change from its original size (set to 25px) to a larger size (48px) every 5 seconds. 
+        function changeFontSize() {
+          var currentFontSize = $("body").css("fontSize");
+
+          if (currentFontSize === "25px") {
+            $("body").css("fontSize", "48px");
+          } else {
+            $("body").css("fontSize", "25px");
+          }
+         //this is where the 5 seconds part of the function is called.  
+          setTimeout(changeFontSize, 5000); // 5 seconds
+        }
+
+        //this function allows the color of the font to change from the original color (black - shown under rgb; which you get from the console), to a different font color (lightblue), every 10 seconds. 
+        function changeFontColor() {
+          var currentFontColor = $("body").css("color");
+
+          if (currentFontColor === "rgb(0, 0, 0)") {
+            $("body").css("color", "lightblue");
+          } else {
+            $("body").css("color", "black");
+          }
+
+          //here is where the 10 seconds is called. 
+          setTimeout(changeFontColor, 10000); // 10 seconds
+        }
+
+
+        startTime(); // manages the clock
+        changeFontSize(); // changes the font size
+        changeFontColor(); // changes the font color
+      });
+    </script>
+  </body>
+</html>
